@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CONSONANTS	ps3.py	/^CONSONANTS = 'bcdfghjklmnpqrstvwxyz'$/;"	v
+HAND_SIZE	ps3.py	/^HAND_SIZE = 7$/;"	v
+SCRABBLE_LETTER_VALUES	ps3.py	/^SCRABBLE_LETTER_VALUES = {$/;"	v
+VOWELS	ps3.py	/^VOWELS = 'aeiou'$/;"	v
+WORDLIST_FILENAME	ps3.py	/^WORDLIST_FILENAME = "words.txt"$/;"	v
+calculate_handlen	ps3.py	/^def calculate_handlen(hand):$/;"	f
+deal_hand	ps3.py	/^def deal_hand(n):$/;"	f
+display_hand	ps3.py	/^def display_hand(hand):$/;"	f
+get_frequency_dict	ps3.py	/^def get_frequency_dict(sequence):$/;"	f
+get_word_score	ps3.py	/^def get_word_score(word, n):$/;"	f
+is_valid_word	ps3.py	/^def is_valid_word(word, hand, word_list):$/;"	f
+load_words	ps3.py	/^def load_words():$/;"	f
+math	ps3.py	/^import math$/;"	i
+play_game	ps3.py	/^def play_game(word_list):$/;"	f
+play_hand	ps3.py	/^def play_hand(hand, word_list):$/;"	f
+random	ps3.py	/^import random$/;"	i
+string	ps3.py	/^import string$/;"	i
+substitute_hand	ps3.py	/^def substitute_hand(hand, letter):$/;"	f
+test_get_word_score	test_ps3.py	/^def test_get_word_score():$/;"	f
+test_is_valid_word	test_ps3.py	/^def test_is_valid_word(word_list):$/;"	f
+test_update_hand	test_ps3.py	/^def test_update_hand():$/;"	f
+test_wildcard	test_ps3.py	/^def test_wildcard(word_list):$/;"	f
+update_hand	ps3.py	/^def update_hand(hand, word):$/;"	f
+word_list	ps3.py	/^    word_list = load_words()$/;"	v
+word_list	test_ps3.py	/^word_list = load_words()$/;"	v

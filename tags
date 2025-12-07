@@ -1,0 +1,126 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CONSONANTS	ps3/ps3.py	/^CONSONANTS = 'bcdfghjklmnpqrstvwxyz'$/;"	v
+HAND_SIZE	ps3/ps3.py	/^HAND_SIZE = 7$/;"	v
+Results_600	ps3_alt/test_ps3_student.py	/^class Results_600(unittest.TextTestResult):$/;"	c
+SCRABBLE_LETTER_VALUES	ps3/ps3.py	/^SCRABBLE_LETTER_VALUES = {$/;"	v
+TestGetFrequentWords	ps3_alt/test_ps3_student.py	/^class TestGetFrequentWords(unittest.TestCase):$/;"	c
+TestLetterFrequency	ps3_alt/test_ps3_student.py	/^class TestLetterFrequency(unittest.TestCase):$/;"	c
+TestPrepData	ps3_alt/test_ps3_student.py	/^class TestPrepData(unittest.TestCase):$/;"	c
+TestSimilarity	ps3_alt/test_ps3_student.py	/^class TestSimilarity(unittest.TestCase):$/;"	c
+TestTFIDF	ps3_alt/test_ps3_student.py	/^class TestTFIDF(unittest.TestCase):$/;"	c
+TestWordFrequency	ps3_alt/test_ps3_student.py	/^class TestWordFrequency(unittest.TestCase):$/;"	c
+VOWELS	ps3/ps3.py	/^VOWELS = 'aeiou'$/;"	v
+WORDLIST_FILENAME	ps2/hangman.py	/^WORDLIST_FILENAME = "words.txt"$/;"	v
+WORDLIST_FILENAME	ps3/ps3.py	/^WORDLIST_FILENAME = "words.txt"$/;"	v
+__init__	ps3_alt/test_ps3_student.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:Results_600
+a1	ps3_alt/test_ps3_student.py	/^a1 = ['from', 'time', 'to', 'time', 'this',$/;"	v
+a1_freq	ps3_alt/test_ps3_student.py	/^a1_freq = {'from': 2, 'time': 2, 'to': 5, 'this': 1, 'submerged': 1,$/;"	v
+absolute_file_paths	ps3_alt/test_ps3_student.py	/^def absolute_file_paths(directory):$/;"	f
+addError	ps3_alt/test_ps3_student.py	/^    def addError(self, test, err):$/;"	m	class:Results_600
+addFailure	ps3_alt/test_ps3_student.py	/^    def addFailure(self, test, err):$/;"	m	class:Results_600
+assertDictAlmostEqual	ps3_alt/test_ps3_student.py	/^    def assertDictAlmostEqual(self, d1, d2, msg=None, places=7):$/;"	m	class:TestTFIDF
+assertListAlmostEqual	ps3_alt/test_ps3_student.py	/^    def assertListAlmostEqual(self, list1, list2, places=7):$/;"	m	class:TestTFIDF
+b1	ps3_alt/test_ps3_student.py	/^b1 = ['almost', 'all', 'of', 'shakespeares', 'hamlet', 'can', 'be',$/;"	v
+b1_freq	ps3_alt/test_ps3_student.py	/^b1_freq = {'almost': 1, 'all': 1, 'of': 8, 'shakespeares': 1, 'hamlet': 3,$/;"	v
+calculate_handlen	ps3/ps3.py	/^def calculate_handlen(hand):$/;"	f
+calculate_similarity_score	ps3_alt/document_distance.py	/^def calculate_similarity_score(freq_dict1, freq_dict2):$/;"	f
+choose_word	ps2/hangman.py	/^def choose_word(wordlist):$/;"	f
+deal_hand	ps3/ps3.py	/^def deal_hand(n):$/;"	f
+display_hand	ps3/ps3.py	/^def display_hand(hand):$/;"	f
+ds	ps3_alt/test_ps3_student.py	/^import document_distance as ds$/;"	i
+error_messages	ps3_alt/test_ps3_student.py	/^error_messages = {$/;"	v
+failure_messages	ps3_alt/test_ps3_student.py	/^failure_messages = {$/;"	v
+getOutput	ps3_alt/test_ps3_student.py	/^    def getOutput(self):$/;"	m	class:Results_600
+getPoints	ps3_alt/test_ps3_student.py	/^    def getPoints(self):$/;"	m	class:Results_600
+get_available_letters	ps2/hangman.py	/^def get_available_letters(letters_guessed):$/;"	f
+get_frequencies	ps3_alt/document_distance.py	/^def get_frequencies(input_iterable):$/;"	f
+get_frequency_dict	ps3/ps3.py	/^def get_frequency_dict(sequence):$/;"	f
+get_guessed_word	ps2/hangman.py	/^def get_guessed_word(secret_word, letters_guessed):$/;"	f
+get_idf	ps3_alt/document_distance.py	/^def get_idf(file_paths):$/;"	f
+get_letter_frequencies	ps3_alt/document_distance.py	/^def get_letter_frequencies(word):$/;"	f
+get_most_frequent_words	ps3_alt/document_distance.py	/^def get_most_frequent_words(freq_dict1, freq_dict2):$/;"	f
+get_tf	ps3_alt/document_distance.py	/^def get_tf(file_path):$/;"	f
+get_tfidf	ps3_alt/document_distance.py	/^def get_tfidf(tf_file_path, idf_file_paths):$/;"	f
+get_word_score	ps3/ps3.py	/^def get_word_score(word, n):$/;"	f
+handleDeduction	ps3_alt/test_ps3_student.py	/^    def handleDeduction(self, test_name, messages):$/;"	m	class:Results_600
+hangman	ps2/hangman.py	/^def hangman(secret_word):$/;"	f
+hangman_with_hints	ps2/hangman.py	/^def hangman_with_hints(secret_word):$/;"	f
+idf2_dict	ps3_alt/test_ps3_student.py	/^idf2_dict = {'from': 0.0, 'time': 0.3010299956639812, 'to': 0.0, 'this': 0.3010299956639812,$/;"	v
+is_valid_word	ps3/ps3.py	/^def is_valid_word(word, hand, word_list):$/;"	f
+is_word_guessed	ps2/hangman.py	/^def is_word_guessed(secret_word, letters_guessed):$/;"	f
+load_file	ps3_alt/document_distance.py	/^def load_file(filename):$/;"	f
+load_text	ps3_alt/test_ps3_student.py	/^    def load_text(self, filename):$/;"	m	class:TestWordFrequency
+load_text	ps3_alt/test_ps3_student.py	/^def load_text(filename):$/;"	f
+load_words	ps2/hangman.py	/^def load_words():$/;"	f
+load_words	ps3/ps3.py	/^def load_words():$/;"	f
+main	ps1a.py	/^def main():$/;"	f
+main	ps1b.py	/^def main():$/;"	f
+main	ps1c.py	/^def main():$/;"	f
+match_with_gaps	ps2/hangman.py	/^def match_with_gaps(my_word, other_word):$/;"	f
+math	ps3/ps3.py	/^import math$/;"	i
+math	ps3_alt/document_distance.py	/^import math$/;"	i
+np	ps0.py	/^import numpy as np$/;"	i
+os	ps3_alt/test_ps3_student.py	/^import os$/;"	i
+output	ps3_alt/test_ps3_student.py	/^    output = result.getOutput()$/;"	v
+play_game	ps3/ps3.py	/^def play_game(word_list):$/;"	f
+play_hand	ps3/ps3.py	/^def play_hand(hand, word_list):$/;"	f
+point_values	ps3_alt/test_ps3_student.py	/^point_values = {$/;"	v
+points	ps3_alt/test_ps3_student.py	/^    points = result.getPoints()$/;"	v
+random	ps2/hangman.py	/^import random$/;"	i
+random	ps3/ps3.py	/^import random$/;"	i
+result	ps3_alt/test_ps3_student.py	/^    result = unittest.TextTestRunner(verbosity=4, resultclass=Results_600).run(suite)$/;"	v
+safex	ps0.py	/^safex = int(x)$/;"	v
+safey	ps0.py	/^safey = int(y)$/;"	v
+secret_word	ps2/hangman.py	/^    secret_word = choose_word(wordlist)$/;"	v
+show_possible_matches	ps2/hangman.py	/^def show_possible_matches(my_word):$/;"	f
+string	ps2/hangman.py	/^import string$/;"	i
+string	ps3/ps3.py	/^import string$/;"	i
+string	ps3_alt/document_distance.py	/^import string$/;"	i
+string	ps3_alt/test_ps3_student.py	/^import string$/;"	i
+substitute_hand	ps3/ps3.py	/^def substitute_hand(hand, letter):$/;"	f
+suite	ps3_alt/test_ps3_student.py	/^    suite = unittest.TestSuite()$/;"	v
+sys	ps1a.py	/^import sys$/;"	i
+sys	ps1b.py	/^import sys$/;"	i
+sys	ps1c.py	/^import sys$/;"	i
+test_frequency_1a	ps3_alt/test_ps3_student.py	/^    def test_frequency_1a(self):$/;"	m	class:TestWordFrequency
+test_frequency_1b	ps3_alt/test_ps3_student.py	/^    def test_frequency_1b(self):$/;"	m	class:TestWordFrequency
+test_frequency_hello_world	ps3_alt/test_ps3_student.py	/^    def test_frequency_hello_world(self):$/;"	m	class:TestWordFrequency
+test_frequency_word_hello	ps3_alt/test_ps3_student.py	/^    def test_frequency_word_hello(self):$/;"	m	class:TestWordFrequency
+test_get_word_score	ps3/test_ps3.py	/^def test_get_word_score():$/;"	f
+test_idf1	ps3_alt/test_ps3_student.py	/^    def test_idf1(self):$/;"	m	class:TestTFIDF
+test_idf2	ps3_alt/test_ps3_student.py	/^    def test_idf2(self):$/;"	m	class:TestTFIDF
+test_is_valid_word	ps3/test_ps3.py	/^def test_is_valid_word(word_list):$/;"	f
+test_letter_frequency_1	ps3_alt/test_ps3_student.py	/^    def test_letter_frequency_1(self):$/;"	m	class:TestLetterFrequency
+test_letter_frequency_4	ps3_alt/test_ps3_student.py	/^    def test_letter_frequency_4(self):$/;"	m	class:TestLetterFrequency
+test_prep_1a	ps3_alt/test_ps3_student.py	/^    def test_prep_1a(self):$/;"	m	class:TestPrepData
+test_prep_all_whitespace	ps3_alt/test_ps3_student.py	/^    def test_prep_all_whitespace(self):$/;"	m	class:TestPrepData
+test_prep_hello_world	ps3_alt/test_ps3_student.py	/^    def test_prep_hello_world(self):$/;"	m	class:TestPrepData
+test_similarity_letters_1	ps3_alt/test_ps3_student.py	/^    def test_similarity_letters_1(self):$/;"	m	class:TestSimilarity
+test_similarity_letters_2	ps3_alt/test_ps3_student.py	/^    def test_similarity_letters_2(self):$/;"	m	class:TestSimilarity
+test_similarity_words1	ps3_alt/test_ps3_student.py	/^    def test_similarity_words1(self):$/;"	m	class:TestSimilarity
+test_similarity_words2	ps3_alt/test_ps3_student.py	/^    def test_similarity_words2(self):$/;"	m	class:TestSimilarity
+test_similarity_words3	ps3_alt/test_ps3_student.py	/^    def test_similarity_words3(self):$/;"	m	class:TestSimilarity
+test_similarity_words4	ps3_alt/test_ps3_student.py	/^    def test_similarity_words4(self):$/;"	m	class:TestSimilarity
+test_tf1	ps3_alt/test_ps3_student.py	/^    def test_tf1(self):$/;"	m	class:TestTFIDF
+test_tf2	ps3_alt/test_ps3_student.py	/^    def test_tf2(self):$/;"	m	class:TestTFIDF
+test_tfidf_big	ps3_alt/test_ps3_student.py	/^    def test_tfidf_big(self):$/;"	m	class:TestTFIDF
+test_tfidf_small	ps3_alt/test_ps3_student.py	/^    def test_tfidf_small(self):$/;"	m	class:TestTFIDF
+test_update_hand	ps3/test_ps3.py	/^def test_update_hand():$/;"	f
+test_wildcard	ps3/test_ps3.py	/^def test_wildcard(word_list):$/;"	f
+test_words1	ps3_alt/test_ps3_student.py	/^    def test_words1(self):$/;"	m	class:TestGetFrequentWords
+test_words2	ps3_alt/test_ps3_student.py	/^    def test_words2(self):$/;"	m	class:TestGetFrequentWords
+text_to_list	ps3_alt/document_distance.py	/^def text_to_list(input_text):$/;"	f
+tf2_dict	ps3_alt/test_ps3_student.py	/^tf2_dict = {'from': 0.015151515151515152, 'time': 0.015151515151515152, 'to': 0.03787878787878788,$/;"	v
+tfidf_list	ps3_alt/test_ps3_student.py	/^tfidf_list = [('and', 0.0), ('as', 0.0), ('the', 0.0), ('to', 0.0), ('a', 0.0007341667652125487),$/;"	v
+unittest	ps3_alt/test_ps3_student.py	/^import unittest$/;"	i
+update_hand	ps3/ps3.py	/^def update_hand(hand, word):$/;"	f
+word_list	ps3/ps3.py	/^    word_list = load_words()$/;"	v
+word_list	ps3/test_ps3.py	/^word_list = load_words()$/;"	v
+wordlist	ps2/hangman.py	/^wordlist = load_words()$/;"	v
+x	ps0.py	/^x = input('Enter number x: ')$/;"	v
+y	ps0.py	/^y = input('Enter number y: ')$/;"	v
