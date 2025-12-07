@@ -50,7 +50,7 @@ def get_frequencies(input_iterable):
         dictionary that maps string:int where each string
         is a letter or word in input_iterable and the corresponding int
         is the frequency of the letter or word in input_iterable
-    Note: 
+    Note:
         You can assume that the only kinds of white space in the text documents we provide will be new lines or space(s) between words (i.e. there are no tabs)
     """
     freak = {}
@@ -174,7 +174,7 @@ def get_tf(file_path):
     file_string = load_file(file_path)
     word_list = text_to_list(file_string)
     freaks = get_frequencies(word_list)
-    
+
     # get the total number of words in the document
     total_words = len(word_list)
 
@@ -301,12 +301,11 @@ if __name__ == "__main__":
     # print(most_frequent)      # should print ["hello", "world"]
 
     ## Tests Problem 5: Find TF-IDF
-    tf_text_file = 'tests/student_tests/hello_world.txt'
-    idf_text_files = ['tests/student_tests/hello_world.txt', 'tests/student_tests/hello_friends.txt']
-    tf = get_tf(tf_text_file)
-    idf = get_idf(idf_text_files)
-    tf_idf = get_tfidf(tf_text_file, idf_text_files)
-    print(tf)     # should print {'hello': 0.6666666666666666, 'world': 0.3333333333333333}
-    print(idf)    # should print {'hello': 0.0, 'world': 0.3010299956639812, 'friends': 0.3010299956639812}
-    print(tf_idf) # should print [('hello', 0.0), ('world', 0.10034333188799373)]
-
+    # tf_text_file = 'tests/student_tests/hello_world.txt'
+    # idf_text_files = ['tests/student_tests/hello_world.txt', 'tests/student_tests/hello_friends.txt']
+    # tf = get_tf(tf_text_file)
+    # idf = get_idf(idf_text_files)
+    # tf_idf = get_tfidf(tf_text_file, idf_text_files)
+    # print(tf)     # should print {'hello': 0.6666666666666666, 'world': 0.3333333333333333}
+    # print(idf)    # should print {'hello': 0.0, 'world': 0.3010299956639812, 'friends': 0.3010299956639812}
+    # print(tf_idf) # should print [('hello', 0.0), ('world', 0.10034333188799373)]
