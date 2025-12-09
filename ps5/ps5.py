@@ -70,7 +70,9 @@ def img_to_pix(filename):
                  in form L such as [60,66,72...] for BW image
     """
     im = Image.open(filename)
-    return im.getdata()
+    pixel_list = list(im.getdata())
+    im.close()
+    return pixel_list
 
 
 def pix_to_img(pixels_list, size, mode):
@@ -89,9 +91,13 @@ def pix_to_img(pixels_list, size, mode):
     returns:
         img: Image object made from list of pixels
     """
-    newimg = Image.new(mode, size)
-    newimg.putdata(pixels_list)
-    return newimg
+    # newimg = Image.new(mode, size, pixels_list)
+    # newimg.putdata(pixels_list)
+    # return newimg
+    a = numpy.asarray([pixels_list[i*size[0]:(i+1)*size[0]] for i in range(size[1])],
+                      dtype=numpy.uint8)
+    im = Image.fromarray(a, mode)
+    return im
 
 def filter(pixels_list, color):
     """
@@ -102,15 +108,17 @@ def filter(pixels_list, color):
     returns: list of pixels in same format as earlier functions,
     transformed by matrix multiplication
     """
-    retval = []
-    mtx = make_matrix(color)
-    for el in pixels_list:
-        transformed = matrix_multiply(mtx, el)
-        tmp = ()
-        for f in transformed:
-            tmp += (int(f),)
-        retval.append(tmp)
-    return retval
+    # retval = []
+    # mtx = make_matrix(color)
+    # for el in pixels_list:
+    #     transformed = matrix_multiply(mtx, el)
+    #     tmp = ()
+    #     for f in transformed:
+    #         tmp += (int(f),)
+    #     retval.append(tmp)
+    # return retval
+    return [matrix_multiply(make_matrix(color),p) for p in pixels_list]
+
 
 def extract_end_bits(num_end_bits, pixel):
     """
@@ -142,8 +150,16 @@ def extract_end_bits(num_end_bits, pixel):
     Returns:
         The num_end_bits of pixel, as an integer (BW) or tuple of integers (RGB).
     """
-    pass
-
+    # if type(pixel) == int:
+    #     return pixel % 2**num_end_bits
+    # else:
+    #     tmp = ()
+    #     for c in pixel:
+    #         tmp += (c % 2**num_end_bits,)
+    #     return tmp
+    if type(pixel) == int:
+        return pixel % (2**num_end_bits)
+    return tuple(map(lambda n,p: n%(2**p), pixel, [num_end_bits]*len(pixel)))
 
 def reveal_bw_image(filename):
     """
@@ -153,7 +169,20 @@ def reveal_bw_image(filename):
     Returns:
         result: an Image object containing the hidden image
     """
-    pass
+    # im = Image.open(filename)
+    # pixel_list = img_to_pix(filename)
+    # hidden_px = []
+    # for px in pixel_list:
+    #     hidden_px.append(extract_end_bits(6, px))
+
+    # newimg = Image.new(im.mode, im.size)
+    # newimg.putdata(hidden_px)
+    # return newimg
+    im = Image.open(filename)
+    size = im.size
+    hidden_pixels = [extract_end_bits(1, p)*255 for p in list(im.getdata())]
+    im.close()
+    return pix_to_img(hidden_pixels, size, 'L')
 
 
 def reveal_color_image(filename):
@@ -164,8 +193,24 @@ def reveal_color_image(filename):
     Returns:
         result: an Image object containing the hidden image
     """
-    pass
+    # im = Image.open(filename)
+    # pixel_list = img_to_pix(filename)
+    # retval = []
+    # for tp in pixel_list:
+    #     tmp = ()
+    #     for px in tp:
+    #         tmp += (extract_end_bits(3, px),)
+    #     retval.append(tmp)
 
+    # newimg = Image.new(im.mode, im.size)
+    # newimg.putdata(retval)
+    # return newimg
+    im = Image.open(filename)
+    size = im.size
+    hidden_pixels = [tuple(map(lambda x:x*(255/7), extract_end_bits(3, p))) \
+                     for p in list(im.getdata())]
+    im.close()
+    return pix_to_img(hidden_pixels, size, 'RGB')
 
 def reveal_image(filename):
     """
@@ -214,16 +259,20 @@ def main():
     im = Image.open('image_15.png')
     width, height = im.size
     pixels = img_to_pix('image_15.png')
-    # print('img width:',width, 'ht:', height, 'img data:', len(pixels))
+    # # print('img width:',width, 'ht:', height, 'img data:', len(pixels))
 
-    non_filtered_pixels = filter(pixels,'none')
-    # print('nfp len:', len(non_filtered_pixels))
-    im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
-    im.show()
+    # non_filtered_pixels = filter(pixels,'none')
+    # # print('nfp len:', len(non_filtered_pixels))
+    # im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
+    # im.show()
 
+    # red_filtered_pixels = filter(pixels,'red')
+    # im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
+    # im2.show()
     red_filtered_pixels = filter(pixels,'red')
     im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
-    im2.show()
+    #im2.show()
+    im2.save('Filtered_image_15.png')
 
     # Uncomment the following lines to test part 2
     # im = reveal_image('hidden1.bmp')
@@ -232,6 +281,18 @@ def main():
     # im2 = reveal_image('hidden2.bmp')
     # im2.show()
 
+    # Uncomment the following lines to test part 2
+    im = reveal_image('hidden1.bmp')
+    #im.show()
+    im.save('Unhidden_hidden1.png')
+
+    im2 = reveal_image('hidden2.bmp')
+    #im2.show()
+    im2.save('Unhidden_hidden2.png')
+
 
 if __name__ == '__main__':
     main()
+    draw_kerb('Unhidden_hidden1.png', 'ronaldo')
+    draw_kerb('Unhidden_hidden2.png', 'ronaldo')
+    pass
