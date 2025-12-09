@@ -151,7 +151,7 @@ def extract_end_bits(num_end_bits, pixel):
         The num_end_bits of pixel, as an integer (BW) or tuple of integers (RGB).
     """
     # if type(pixel) == int:
-    #     return pixel % 2**num_end_bits
+    #     return pixel % (2**num_end_bits)
     # else:
     #     tmp = ()
     #     for c in pixel:
@@ -159,7 +159,7 @@ def extract_end_bits(num_end_bits, pixel):
     #     return tmp
     if type(pixel) == int:
         return pixel % (2**num_end_bits)
-    return tuple(map(lambda n,p: n%(2**p), pixel, [num_end_bits]*len(pixel)))
+    return tuple(map(lambda n,p: n % (2**p), pixel, [num_end_bits]*len(pixel)))
 
 def reveal_bw_image(filename):
     """
@@ -169,20 +169,20 @@ def reveal_bw_image(filename):
     Returns:
         result: an Image object containing the hidden image
     """
-    # im = Image.open(filename)
-    # pixel_list = img_to_pix(filename)
-    # hidden_px = []
-    # for px in pixel_list:
-    #     hidden_px.append(extract_end_bits(6, px))
-
-    # newimg = Image.new(im.mode, im.size)
-    # newimg.putdata(hidden_px)
-    # return newimg
     im = Image.open(filename)
-    size = im.size
-    hidden_pixels = [extract_end_bits(1, p)*255 for p in list(im.getdata())]
-    im.close()
-    return pix_to_img(hidden_pixels, size, 'L')
+    pixel_list = img_to_pix(filename)
+    hidden_px = []
+    # multiply each px by 255 to 'intensify'
+    for px in pixel_list:
+        hidden_px.append(extract_end_bits(1, px) * 255)
+    # pixel distribution in hidden_px
+    # pd = {}
+    # for p in hidden_px:
+    #     pd[p] = pd.get(p, 0) + 1
+    # print(pd)
+    newimg = Image.new(im.mode, im.size)
+    newimg.putdata(hidden_px)
+    return newimg
 
 
 def reveal_color_image(filename):
@@ -193,24 +193,24 @@ def reveal_color_image(filename):
     Returns:
         result: an Image object containing the hidden image
     """
-    # im = Image.open(filename)
-    # pixel_list = img_to_pix(filename)
-    # retval = []
-    # for tp in pixel_list:
-    #     tmp = ()
-    #     for px in tp:
-    #         tmp += (extract_end_bits(3, px),)
-    #     retval.append(tmp)
-
-    # newimg = Image.new(im.mode, im.size)
-    # newimg.putdata(retval)
-    # return newimg
     im = Image.open(filename)
-    size = im.size
-    hidden_pixels = [tuple(map(lambda x:x*(255/7), extract_end_bits(3, p))) \
-                     for p in list(im.getdata())]
+    pixel_list = img_to_pix(filename)
+    hidden_pixels = []
+    # hidden_pixels = [tuple(map(lambda x:x*(255/7), extract_end_bits(3, p))) for p in list(im.getdata())]
+    for tp in pixel_list:
+        tmp = ()
+        for px in tp:
+            tmp += (extract_end_bits(3, px) * 255 // 7,)
+        hidden_pixels.append(tmp)
+    # print hidden_pixels pixel tuple distribution to determine scaling factor
+    # dp = {}
+    # for t in hidden_pixels:
+    #     dp[t] = dp.get(t, 0) + 1
+    # print(dp)
+    newimg = Image.new(im.mode, im.size)
+    newimg.putdata(hidden_pixels)
     im.close()
-    return pix_to_img(hidden_pixels, size, 'RGB')
+    return newimg
 
 def reveal_image(filename):
     """
@@ -256,43 +256,30 @@ def main():
 
     # Uncomment the following lines to test part 1
 
-    im = Image.open('image_15.png')
-    width, height = im.size
-    pixels = img_to_pix('image_15.png')
+    # im = Image.open('image_15.png')
+    # width, height = im.size
+    # pixels = img_to_pix('image_15.png')
     # # print('img width:',width, 'ht:', height, 'img data:', len(pixels))
 
     # non_filtered_pixels = filter(pixels,'none')
-    # # print('nfp len:', len(non_filtered_pixels))
     # im = pix_to_img(non_filtered_pixels, (width, height), 'RGB')
     # im.show()
 
     # red_filtered_pixels = filter(pixels,'red')
     # im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
     # im2.show()
-    red_filtered_pixels = filter(pixels,'red')
-    im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
-    #im2.show()
-    im2.save('Filtered_image_15.png')
+    # im2.save('Filtered_image_15.png')
 
     # Uncomment the following lines to test part 2
     # im = reveal_image('hidden1.bmp')
     # im.show()
+    # im.save('Unhidden_hidden1.png')
 
     # im2 = reveal_image('hidden2.bmp')
     # im2.show()
-
-    # Uncomment the following lines to test part 2
-    im = reveal_image('hidden1.bmp')
-    #im.show()
-    im.save('Unhidden_hidden1.png')
-
-    im2 = reveal_image('hidden2.bmp')
-    #im2.show()
-    im2.save('Unhidden_hidden2.png')
-
+    # im2.save('Unhidden_hidden2.png')
+    # draw_kerb('Unhidden_hidden1.png', 'ronaldo')
+    # draw_kerb('Unhidden_hidden2.png', 'ronaldo')
 
 if __name__ == '__main__':
-    main()
-    draw_kerb('Unhidden_hidden1.png', 'ronaldo')
-    draw_kerb('Unhidden_hidden2.png', 'ronaldo')
     pass
