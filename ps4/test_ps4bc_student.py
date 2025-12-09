@@ -172,7 +172,7 @@ class TestPS4BC(unittest.TestCase):
                ('m]+h{eF&p.f\\eT]?Xb;K!{5', [[2, 48, 28, 94, 78, 42, 81, 58, 70, 78, 34, 47, 36, 47, 9, 39, 6, 45, 25, 82, 82, 49, 44], [11, 17, 9, 5, 71, 72, 35, 64, 44, 37, 59, 59, 80, 71, 59, 13, 86, 92, 44, 49, 38, 7, 15], [14, 60, 33, 28, 54, 63, 46, 46, 9, 73, 33, 25, 33, 87, 59, 69, 28, 92, 12, 22, 68, 40, 70], [25, 84, 33, 84, 91, 92, 68, 18, 80, 33, 86, 77, 93, 78, 74, 31, 68, 89, 49, 68, 12, 8, 18], [52, 52, 84, 23, 89, 81, 58, 71, 23, 31, 16, 27, 14, 11, 61, 91, 29, 32, 50, 37, 70, 59, 39], [3, 1, 91, 67, 74, 89, 76, 13, 64, 16, 90, 77, 7, 69, 12, 2, 73, 67, 15, 53, 47, 5, 94]], 'This has longer shifts#', [25, 84, 33, 84, 91, 92, 68, 18, 80, 33, 86, 77, 93, 78, 74, 31, 68, 89, 49, 68, 12, 8, 18]))
         for enc, pads, exp_msg, exp_pad in pds:
             enc_msg = student.EncryptedMessage(enc)
-            result_plaintextMessage = studentc.decrypt_message_try_pads(enc_msg.get_text(), pads)
+            result_plaintextMessage = studentc.decrypt_message_try_pads(enc_msg, pads)
             result_pad = result_plaintextMessage.get_pad()
             result_msg = result_plaintextMessage.get_text()
             self.assertEqual(
@@ -181,7 +181,7 @@ class TestPS4BC(unittest.TestCase):
                 exp_msg, result_msg, f"decrypt_message_try_pads returned the correct pad and {result_msg} as the decrypted story when {exp_msg} was expected")
 
         enc = student.EncryptedMessage("bad")
-        result_plaintextMessage = studentc.decrypt_message_try_pads(enc.get_text(),
+        result_plaintextMessage = studentc.decrypt_message_try_pads(enc, 
             [[2, 3, 4], [1, 2, 3]])
         result_pad = result_plaintextMessage.get_pad()
         result_msg = result_plaintextMessage.get_text()

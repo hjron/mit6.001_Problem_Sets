@@ -80,37 +80,49 @@ def decrypt_message_try_pads(ciphertext, pads):
 
     Returns: (PlaintextMessage) A message with the decrypted ciphertext and the best pad
     '''
-    max_words = 0
-    max_pad = []
-    # print('ciphertext:', ciphertext)
-    em = ps4b.EncryptedMessage(ciphertext)
-    dmsg = ''
-    
-    # get a list of valid words
-    valid_words = load_words('words.txt')
+    # max_words = 0
+    # max_pad = []
+    # # print('ciphertext:', ciphertext)
+    # em = ps4b.EncryptedMessage(ciphertext)
+    # dmsg = ''
+    # 
+    # # get a list of valid words
+    # valid_words = load_words('words.txt')
 
-    # for each pad in pads
+    # # for each pad in pads
+    # for pad in pads:
+    #     # decrypt the ciphertext
+    #     msg = em.decrypt_message(pad).get_text()
+    #     # split the decrypted string
+    #     tmp = msg.split()
+    #     # count the number of valid words using is_word()
+    #     count = 0
+    #     for w in tmp:
+    #         if is_word(valid_words, w):
+    #             count += 1
+    #     if count >= max_words:
+    #         max_words = count
+    #         max_pad = pad
+    #         dmsg = msg
+
+    # # print('dmsg:', dmsg, 'max_pad:', max_pad)
+    # dm = ps4b.PlaintextMessage(dmsg)
+    # dm.change_pad(max_pad)
+
+    # # return the pad and string used by the last pad with the most valid words
+    # return dm
+    word_list = load_words('words.txt')
+    out = None
+    max_count = 0
     for pad in pads:
-        # decrypt the ciphertext
-        msg = em.decrypt_message(pad).get_text()
-        # split the decrypted string
-        tmp = msg.split()
-        # count the number of valid words using is_word()
-        count = 0
-        for w in tmp:
-            if is_word(valid_words, w):
-                count += 1
-        if count >= max_words:
-            max_words = count
-            max_pad = pad
-            dmsg = msg
-
-    # print('dmsg:', dmsg, 'max_pad:', max_pad)
-    dm = ps4b.PlaintextMessage(dmsg)
-    dm.change_pad(max_pad)
-
-    # return the pad and string used by the last pad with the most valid words
-    return dm
+        message = ciphertext.decrypt_message(pad).get_text()
+        count = len([s for s in message.split() if is_word(word_list, s)])
+        if count >= max_count:
+            max_count = count
+            out = ps4b.PlaintextMessage(message, pad)
+    if out == None:
+        return ps4b.PlaintextMessage(message, pad)
+    return out
 
 
 def decode_story():
@@ -121,13 +133,14 @@ def decode_story():
     Returns: (string) the decoded story
 
     '''
-    encrypted_text = get_story_string()
-    epads = get_story_pads()
-    decrypted_story = decrypt_message_try_pads(encrypted_text, epads)
-    return decrypted_story.get_text()
+    # encrypted_text = get_story_string()
+    # epads = get_story_pads()
+    # decrypted_story = decrypt_message_try_pads(encrypted_text, epads)
+    # return decrypted_story.get_text()
+    encrypted_story = ps4b.EncryptedMessage(get_story_string())
+    return decrypt_message_try_pads(encrypted_story, get_story_pads()).get_text()
 
 if __name__ == '__main__':
     # # Uncomment these lines to try running decode_story()
     story = decode_story()
     print("Decoded story: ", story)
-    pass

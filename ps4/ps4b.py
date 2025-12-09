@@ -45,11 +45,12 @@ class Message(object):
         Returns: (string) the shifted character with ASCII value in the range [32, 126]
         '''
         span = 95 # from the problem set; 126 - 32 + 1
-        idx = (ord(char) + shift) % span
-        if idx < 32:
-            return chr(idx + span)
-        else:
-            return chr(idx)
+        # idx = (ord(char) + shift) % span
+        # if idx < 32:
+        #     return chr(idx + span)
+        # else:
+        #     return chr(idx)
+        return chr((ord(char) - 32 + shift) % span + 32)
 
     def apply_pad(self, pad):
         '''
@@ -62,12 +63,14 @@ class Message(object):
 
         Returns: (string) The ciphertext produced using the one time pad
         '''
-        message = ''
-        tmp = self.get_text()
+        # message = ''
+        # tmp = self.get_text()
 
         # print('in apply_pad, tmp:', tmp)
-        for i in range(len(tmp)):
-            message += self.shift_char(tmp[i], pad[i])
+        # for i in range(len(tmp)):
+        #     message += self.shift_char(tmp[i], pad[i])
+        return ''.join([self.shift_char(self.get_text()[i], pad[i])
+                        for i in range(len(self.get_text()))])
 
         return message
 
@@ -86,11 +89,15 @@ class PlaintextMessage(Message):
                 or generated randomly using self.generate_pad() if pad is None)
             the ciphertext (string, input_text encrypted using the pad)
         '''
-        Message.__init__(self, input_text)
-        if pad is not None and len(pad) == len(input_text):
-            self.pad = pad.copy()
-        else:
-            self.pad = self.generate_pad()
+        # Message.__init__(self, input_text)
+        super().__init__(input_text)
+        if_none = lambda: pad.copy() if pad != None else self.generate_pad()
+        self.pad = if_none()
+
+        # if pad is not None and len(pad) == len(input_text):
+        #     self.pad = pad.copy()
+        # else:
+        #     self.pad = self.generate_pad()
 
     def __repr__(self):
         '''
@@ -111,10 +118,11 @@ class PlaintextMessage(Message):
 
         Returns: (list of integers) the new one time pad
         '''
-        p = []
-        for c in self.get_text():
-            p.append(random.randint(0, 111)) # range (0, 110]
-        return p
+        # p = []
+        # for c in self.get_text():
+        #     p.append(random.randint(0, 110)) # range [0, 110)
+        # return p
+        return [random.randint(0,110) for x in range(len(self.get_text()))]
 
     def get_pad(self):
         '''
@@ -133,7 +141,8 @@ class PlaintextMessage(Message):
 
         Returns: (string) the ciphertext
         '''
-        return Message.apply_pad(self, self.pad)
+        # return Message.apply_pad(self, self.pad)
+        return self.apply_pad(self.pad)
 
     def change_pad(self, new_pad):
         '''
@@ -145,8 +154,10 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        if len(new_pad) == len(self.get_text()):
-            self.pad = new_pad
+        # if len(new_pad) == len(self.get_text()):
+        #     self.pad = new_pad
+        if_int = lambda: new_pad.copy() if type(new_pad) == list else [new_pad]
+        self.pad = if_int()
 
 class EncryptedMessage(Message):
     def __init__(self, input_text):
@@ -159,7 +170,7 @@ class EncryptedMessage(Message):
             the message text (ciphertext)
         '''
         # print('in constructor input text:', input_text)
-        Message.__init__(self, input_text)
+        super().__init__(input_text)
         # print('in constructor get_text():', self.get_text())
 
     def __repr__(self):
@@ -180,8 +191,10 @@ class EncryptedMessage(Message):
 
         Returns: (PlaintextMessage) the decrypted message (containing the pad)
         '''
-        dpad = pad.copy()
-        for i in range(len(dpad)):
-            dpad[i] *= -1
-        return PlaintextMessage(Message.apply_pad(self, dpad), pad)
+        # dpad = pad.copy()
+        # for i in range(len(dpad)):
+        #     dpad[i] *= -1
+        # return PlaintextMessage(Message.apply_pad(self, dpad), pad)
+
+        return PlaintextMessage(self.apply_pad([-x for x in pad]), pad)
 
