@@ -195,13 +195,14 @@ def reveal_color_image(filename):
     """
     im = Image.open(filename)
     pixel_list = img_to_pix(filename)
-    hidden_pixels = []
-    # hidden_pixels = [tuple(map(lambda x:x*(255/7), extract_end_bits(3, p))) for p in list(im.getdata())]
-    for tp in pixel_list:
-        tmp = ()
-        for px in tp:
-            tmp += (extract_end_bits(3, px) * 255 // 7,)
-        hidden_pixels.append(tmp)
+    # hidden_pixels = []
+    # for tp in pixel_list:
+    #     tmp = ()
+    #     for px in tp:
+    #         tmp += (extract_end_bits(3, px) * 255 // 7,)
+    #     hidden_pixels.append(tmp)
+
+    hidden_pixels = [tuple(map(lambda x:x*(255/7), extract_end_bits(3, p))) for p in list(im.getdata())]
     # print hidden_pixels pixel tuple distribution to determine scaling factor
     # dp = {}
     # for t in hidden_pixels:
@@ -252,7 +253,7 @@ def draw_kerb(filename, kerb):
 
 
 def main():
-    pass
+    # pass
 
     # Uncomment the following lines to test part 1
 
@@ -268,18 +269,18 @@ def main():
     # red_filtered_pixels = filter(pixels,'red')
     # im2 = pix_to_img(red_filtered_pixels,(width,height), 'RGB')
     # im2.show()
-    # im2.save('Filtered_image_15.png')
+    # im2.save('red_image_15.png')
 
     # Uncomment the following lines to test part 2
     # im = reveal_image('hidden1.bmp')
     # im.show()
-    # im.save('Unhidden_hidden1.png')
+    # im.save('revealed_hidden1.png')
 
     # im2 = reveal_image('hidden2.bmp')
     # im2.show()
-    # im2.save('Unhidden_hidden2.png')
-    # draw_kerb('Unhidden_hidden1.png', 'ronaldo')
-    # draw_kerb('Unhidden_hidden2.png', 'ronaldo')
+    # im2.save('revealed_hidden2.png')
+    # draw_kerb('revealed_hidden1.png', 'ronaldo')
+    # draw_kerb('revealed_hidden2.png', 'ronaldo')
 
 if __name__ == '__main__':
-    pass
+    main()
