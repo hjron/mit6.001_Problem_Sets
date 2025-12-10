@@ -53,16 +53,17 @@ def get_frequencies(input_iterable):
     Note:
         You can assume that the only kinds of white space in the text documents we provide will be new lines or space(s) between words (i.e. there are no tabs)
     """
-    freak = {}
-    for e in input_iterable:
-        # if e in freak:
-        #     freak[e] += 1
-        # else:
-        #     freak[e] = 1
-        # terse version of the above
-        freak[e] = freak.get(e, 0) + 1
+    # freak = {}
+    # for e in input_iterable:
+    #     # if e in freak:
+    #     #     freak[e] += 1
+    #     # else:
+    #     #     freak[e] = 1
+    #     # terse version of the above
+    #     freak[e] = freak.get(e, 0) + 1
 
-    return freak
+    # return freak
+    return {s:input_iterable.count(s) for s in input_iterable}
 
 
 ### Problem 2: Letter Frequencies ###
@@ -75,7 +76,9 @@ def get_letter_frequencies(word):
         is a letter in word and the corresponding int
         is the frequency of the letter in word
     """
-    return get_frequencies(word)
+    # return get_frequencies(word)
+    return {s:word.count(s)
+            for s in string.ascii_lowercase if word.count(s) != 0}
 
 
 ### Problem 3: Similarity ###
@@ -103,22 +106,27 @@ def calculate_similarity_score(freq_dict1, freq_dict2):
          all frequencies in both dict1 and dict2.
         Return 1-(DIFF/ALL) rounded to 2 decimal places
     """
-    DIFF, ALL = 0, 0
-    for w in freq_dict1:
-        if w in freq_dict2:
-            DIFF += abs(freq_dict1[w] - freq_dict2[w])
-            ALL += (freq_dict1[w] + freq_dict2[w])
-        else:
-            DIFF += freq_dict1[w]
-            ALL += freq_dict1[w]
+    # DIFF, ALL = 0, 0
+    # for w in freq_dict1:
+    #     if w in freq_dict2:
+    #         DIFF += abs(freq_dict1[w] - freq_dict2[w])
+    #         ALL += (freq_dict1[w] + freq_dict2[w])
+    #     else:
+    #         DIFF += freq_dict1[w]
+    #         ALL += freq_dict1[w]
 
-    for w in freq_dict2:
-        if w not in freq_dict1:
-            DIFF += freq_dict2[w]
-            ALL += freq_dict2[w]
+    # for w in freq_dict2:
+    #     if w not in freq_dict1:
+    #         DIFF += freq_dict2[w]
+    #         ALL += freq_dict2[w]
 
-    return round(1 - (DIFF / ALL), 2)
-
+    # return round(1 - (DIFF / ALL), 2)
+    all = sum(freq_dict1.values()) + sum(freq_dict2.values())
+    diff = sum(abs(freq_dict1[k] - freq_dict2[k])
+               for k in freq_dict1 if k in freq_dict2)
+    diff += sum(freq_dict1[k] for k in freq_dict1 if k not in freq_dict2)
+    diff += sum(freq_dict2[k] for k in freq_dict2 if k not in freq_dict1)
+    return round(1 - (diff / all), 2)
 
 ### Problem 4: Most Frequent Word(s) ###
 def get_most_frequent_words(freq_dict1, freq_dict2):
@@ -142,20 +150,26 @@ def get_most_frequent_words(freq_dict1, freq_dict2):
     return an alphabetically ordered list of all these words.
     """
     mfw = freq_dict1.copy()
-    for w in freq_dict2:
-        if w in mfw:
-            mfw[w] += freq_dict2[w]
+    for k, v in freq_dict2.items():
+        if k in mfw:
+            mfw[k] += v
         else:
-            mfw[w] = freq_dict2[w]
+            mfw[k] = freq_dict2[k]
+    return [k for k, v in mfw.items() if v == max(mfw.values())]
+    # for w in freq_dict2:
+    #     if w in mfw:
+    #         mfw[w] += freq_dict2[w]
+    #     else:
+    #         mfw[w] = freq_dict2[w]
 
-    max_freq = 0
-    retval = []
-    for w in sorted(mfw, key=mfw.get, reverse=True):
-        if mfw[w] >= max_freq:
-            max_freq = mfw[w]
-            retval.append(w)
+    # max_freq = 0
+    # retval = []
+    # for w in sorted(mfw, key=mfw.get, reverse=True):
+    #     if mfw[w] >= max_freq:
+    #         max_freq = mfw[w]
+    #         retval.append(w)
 
-    return sorted(retval)
+    # return sorted(retval)
 
 ### Problem 5: Finding TF-IDF ###
 def get_tf(file_path):
@@ -171,18 +185,21 @@ def get_tf(file_path):
     """
     # open and read a file into a string, convert to a list of words,
     # then convert the list to a dictionary of word frequencies
-    file_string = load_file(file_path)
-    word_list = text_to_list(file_string)
-    freaks = get_frequencies(word_list)
+    # file_string = load_file(file_path)
+    # word_list = text_to_list(file_string)
+    # freaks = get_frequencies(word_list)
 
-    # get the total number of words in the document
-    total_words = len(word_list)
+    # # get the total number of words in the document
+    # total_words = len(word_list)
 
-    tf = {}
-    for w in freaks:
-        tf[w] = freaks[w] / total_words
+    # tf = {}
+    # for w in freaks:
+    #     tf[w] = freaks[w] / total_words
 
-    return tf
+    # return tf
+    frequencies = get_frequencies(text_to_list(load_file(file_path)))
+    total = sum(frequencies.values())
+    return {k:(v / total) for k, v in frequencies.items()}
 
 def get_idf(file_paths):
     """
@@ -196,34 +213,39 @@ def get_idf(file_paths):
     with math.log10()
 
     """
-    # open and read each file into a list of strings
-    strings = []
-    for f in file_paths:
-        strings.append(load_file(f))
+    # # open and read each file into a list of strings
+    # strings = []
+    # for f in file_paths:
+    #     strings.append(load_file(f))
 
-    # convert each string into a list
-    words = []
-    for s in strings:
-        words.append(s.split())
+    # # convert each string into a list
+    # words = []
+    # for s in strings:
+    #     words.append(s.split())
 
     # dedupe each list of words
-    uniq_words = []
-    for wl in words:
-        uniq_words.append(list(dict.fromkeys(wl)))
+    # uniq_words = []
+    # for wl in words:
+    #     uniq_words.append(list(dict.fromkeys(wl)))
 
-    # count how many files have each word
-    doc_freak = {}
-    for l in uniq_words:
-        for w in l:
-            doc_freak[w] = doc_freak.get(w, 0) + 1
+    # # count how many files have each word
+    # doc_freak = {}
+    # for l in uniq_words:
+    #     for w in l:
+    #         doc_freak[w] = doc_freak.get(w, 0) + 1
 
-    # calc idf for each word
-    idf = {}
-    doc_count = len(file_paths)
-    for el in doc_freak:
-        idf[el] = math.log10(doc_count / doc_freak[el])
+    # # calc idf for each word
+    # idf = {}
+    # doc_count = len(file_paths)
+    # for el in doc_freak:
+    #     idf[el] = math.log10(doc_count / doc_freak[el])
 
-    return idf
+    # return idf
+    dedupe_list = []
+    for f in file_paths:
+        dedupe_list += get_frequencies(text_to_list(load_file(f)))
+    return {k:(math.log10(len(file_paths) / v))
+            for k, v in get_frequencies(dedupe_list).items()}
 
 def get_tfidf(tf_file_path, idf_file_paths):
     """
@@ -241,12 +263,14 @@ def get_tfidf(tf_file_path, idf_file_paths):
     tfs = get_tf(tf_file_path)
     idfs = get_idf(idf_file_paths)
 
-    tfidf = {}
-    for k in tfs:
-        if k in idfs:
-            tfidf[k] = tfs[k] * idfs[k]
+    # tfidf = {}
+    # for k in tfs:
+    #     if k in idfs:
+    #         tfidf[k] = tfs[k] * idfs[k]
 
-    return sorted(tfidf.items())
+    # return sorted(tfidf.items())
+    tfidf = [(k, (v*idfs[k])) for k, v in tfs.items()]
+    return sorted(tfidf, key=lambda x:x[1])
 
 
 if __name__ == "__main__":
