@@ -150,12 +150,7 @@ def get_most_frequent_words(freq_dict1, freq_dict2):
     return an alphabetically ordered list of all these words.
     """
     mfw = freq_dict1.copy()
-    for k, v in freq_dict2.items():
-        if k in mfw:
-            mfw[k] += v
-        else:
-            mfw[k] = freq_dict2[k]
-    return [k for k, v in mfw.items() if v == max(mfw.values())]
+
     # for w in freq_dict2:
     #     if w in mfw:
     #         mfw[w] += freq_dict2[w]
@@ -168,8 +163,14 @@ def get_most_frequent_words(freq_dict1, freq_dict2):
     #     if mfw[w] >= max_freq:
     #         max_freq = mfw[w]
     #         retval.append(w)
+    for k, v in freq_dict2.items():
+        if k in mfw:
+            mfw[k] += v
+        else:
+            mfw[k] = freq_dict2[k]
 
     # return sorted(retval)
+    return [k for k, v in mfw.items() if v == max(mfw.values())]
 
 ### Problem 5: Finding TF-IDF ###
 def get_tf(file_path):
@@ -188,17 +189,17 @@ def get_tf(file_path):
     # file_string = load_file(file_path)
     # word_list = text_to_list(file_string)
     # freaks = get_frequencies(word_list)
+    frequencies = get_frequencies(text_to_list(load_file(file_path)))
 
     # # get the total number of words in the document
     # total_words = len(word_list)
+    total = sum(frequencies.values())
 
     # tf = {}
     # for w in freaks:
     #     tf[w] = freaks[w] / total_words
 
     # return tf
-    frequencies = get_frequencies(text_to_list(load_file(file_path)))
-    total = sum(frequencies.values())
     return {k:(v / total) for k, v in frequencies.items()}
 
 def get_idf(file_paths):
@@ -227,6 +228,9 @@ def get_idf(file_paths):
     # uniq_words = []
     # for wl in words:
     #     uniq_words.append(list(dict.fromkeys(wl)))
+    dedupe_list = []
+    for f in file_paths:
+        dedupe_list += get_frequencies(text_to_list(load_file(f)))
 
     # # count how many files have each word
     # doc_freak = {}
@@ -241,9 +245,6 @@ def get_idf(file_paths):
     #     idf[el] = math.log10(doc_count / doc_freak[el])
 
     # return idf
-    dedupe_list = []
-    for f in file_paths:
-        dedupe_list += get_frequencies(text_to_list(load_file(f)))
     return {k:(math.log10(len(file_paths) / v))
             for k, v in get_frequencies(dedupe_list).items()}
 
@@ -267,9 +268,9 @@ def get_tfidf(tf_file_path, idf_file_paths):
     # for k in tfs:
     #     if k in idfs:
     #         tfidf[k] = tfs[k] * idfs[k]
+    tfidf = [(k, (v*idfs[k])) for k, v in tfs.items()]
 
     # return sorted(tfidf.items())
-    tfidf = [(k, (v*idfs[k])) for k, v in tfs.items()]
     return sorted(tfidf, key=lambda x:x[1])
 
 
