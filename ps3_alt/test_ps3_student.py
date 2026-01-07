@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import document_distance as ds
 import unittest
